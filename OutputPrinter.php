@@ -22,19 +22,29 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class OutputPrinter
 {
-    /**
-     * @var OutputInterface
-     */
-    private $output;
+    private OutputInterface $output;
+    private bool $quiet;
 
     /**
      * ServerHeaderPrinter constructor.
      *
      * @param OutputInterface $output
+     * @param bool            $beQuiet
      */
-    public function __construct(OutputInterface $output)
-    {
+    public function __construct(
+        OutputInterface $output,
+        bool $beQuiet = false
+    ) {
         $this->output = $output;
+        $this->quiet = $beQuiet;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isQuiet(): bool
+    {
+        return $this->quiet;
     }
 
     /**
