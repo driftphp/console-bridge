@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace Drift\Server;
+namespace Drift\Console;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
