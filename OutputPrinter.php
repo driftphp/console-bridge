@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the DriftPHP Project
+ * This file is part of the Drift Server
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace Drift\Console;
+namespace Drift\Server;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -24,27 +24,37 @@ class OutputPrinter
 {
     private OutputInterface $output;
     private bool $quiet;
+    private bool $almostQuiet;
 
     /**
-     * ServerHeaderPrinter constructor.
-     *
      * @param OutputInterface $output
-     * @param bool            $beQuiet
+     * @param bool            $quiet
+     * @param bool            $almostQuiet
      */
     public function __construct(
         OutputInterface $output,
-        bool $beQuiet = false
+        bool $quiet,
+        bool $almostQuiet
     ) {
         $this->output = $output;
-        $this->quiet = $beQuiet;
+        $this->quiet = $quiet;
+        $this->almostQuiet = $almostQuiet;
     }
 
     /**
      * @return bool
      */
-    public function isQuiet(): bool
+    public function shouldPrintRegularOutput(): bool
     {
-        return $this->quiet;
+        return !$this->quiet && !$this->almostQuiet;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldPrintImportantOutput(): bool
+    {
+        return !$this->quiet;
     }
 
     /**
